@@ -12,7 +12,49 @@
 
 </ion-header>
 
+<ion-content class="sign-up">
 
-<ion-content padding>
+    <ion-grid class="sign-up-head">
+        <ion-row>
+          <ion-col col-12>
+              <h3 text-center>SIGN UP</h3>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row>
+          <ion-col col-12>
+              <ion-item class="transparent-input">
+                  <ion-icon name="person"></ion-icon>
+                  <ion-input type="text" value="" placeholder="Name">
+                      
+                  </ion-input>
+                </ion-item>
+              <ion-item class="transparent-input">
+                  
+                  <ion-input type="password" placeholder="Password"></ion-input>
+                </ion-item>
+    
+                <ion-item class="transparent-input">
+                    
+                    <ion-input type="password" placeholder="Confirm Password"></ion-input>
+                </ion-item>
 
+                <ion-item class="transparent-input">
+                    
+                    <ion-input type="number" placeholder="Mobile Number"></ion-input>
+                </ion-item>
+                <div>
+                    <button ion-button block round class="pink-button">Sign Up</button>
+                </div>
+                
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col col-12>
+              <p class="already-user">Already a user? <a href="">Sign In</a></p>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
 </ion-content>
