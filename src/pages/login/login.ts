@@ -21,8 +21,6 @@ import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuth
 })
 export class LoginPage implements FirebaseListener {
 
-  // @ViewChild('mobileno') mobileno;
-  // @ViewChild('password') password;
   user: User = {
     email: "",
     password: ""
@@ -43,8 +41,8 @@ export class LoginPage implements FirebaseListener {
 
   signIn() {
 
-    if(!this.user.email && !this.user.password){
-      console.log("empty");
+    if(!this.user.email || !this.user.password){
+  
         let alert = this.alertCtrl.create({
           title: 'Login Error',
           subTitle: 'Fields cannot be empty',
@@ -53,15 +51,15 @@ export class LoginPage implements FirebaseListener {
         alert.present();
        
     }else{
-    let signInToast = this.toastCtrl.create({
-      message: "Signed In",
-      duration: 1000
-    });
-    signInToast.present();
-    this.user.email = this.user.email.concat( "@gmail.com" );
-     console.log(this.user.email);
-     this.firebaseService.signUpUser(this.user);
-  }
+          let signInToast = this.toastCtrl.create({
+            message: "Signed In",
+            duration: 1000
+          });
+          signInToast.present();
+          this.user.email = this.user.email.concat( "@gmail.com" );
+        
+          this.firebaseService.signInUser(this.user);
+        }
   }
 
   goToSignUp() {
