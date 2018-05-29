@@ -109,6 +109,24 @@ export class FirebaseServiceProvider {
       })
   }
 
+  public getList(path: string) {
+    this.fireDB.list(path).valueChanges()
+        .subscribe((data)=> {
+          if(this.firebaseListener) {
+            this.firebaseListener.OnDataListComplete(data as any[]);
+          }
+        });
+  }
+
+  public getListOrderedByChild(path: string, orderByChild: string, equalTo: string) {
+    this.fireDB.list(path, (ref)=> ref.orderByChild(orderByChild).equalTo(equalTo)).valueChanges()
+        .subscribe((data)=> {
+          if(this.firebaseListener) {
+            this.firebaseListener.OnDataListComplete(data as any[]);
+          }
+        });
+  }
+
   setFirebaseListener(firebaseListener) {
     this.firebaseListener = firebaseListener;
   }

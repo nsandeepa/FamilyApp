@@ -11,6 +11,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { User } from '../../models/User';
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
+import { Task } from '../../models/Task';
 
 /**
  * Generated class for the SplashPage page.
@@ -47,7 +48,7 @@ export class SplashPage implements FirebaseListener {
   ];
 
   public usersRef: Observable<any[]>;
-  //public userArray: User[];
+  public userArray: any[];
 
   public users: Observable<any[]>;
 
@@ -58,12 +59,6 @@ export class SplashPage implements FirebaseListener {
     public toastCtrl: ToastController,
     public firebaseService: FirebaseServiceProvider) {
       this.firebaseService.setFirebaseListener(this);
-      this.usersRef = fireDb.list('/users', ref=> ref.orderByChild('email').equalTo('imesha.ag@gmail.com')).valueChanges();
-    // this.usersRef.subscribe((data)=> {
-    //   this.userArray = data as User[];
-    //   console.log(data)
-    //   this.OnFirebaseData();
-    // })
     // this.users = fireDb.list('/users', ref=> ref.orderByChild('email').equalTo('imesha.ag@gmail.com')).snapshotChanges();
     // this.users.subscribe( data =>{
     //   console.log(data.length)  
@@ -111,11 +106,12 @@ export class SplashPage implements FirebaseListener {
   }
 
   signOut() {
-    this.firebaseService.signOut();
+    this.navCtrl.push(HomePage);
   }
 
   deleteUser() {
-    this.firebaseService.deleteUser(null);
+    //this.firebaseService.getList('/users');
+    this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
   }
 
   OnSignUpComplete(email: string): void {
@@ -135,7 +131,14 @@ export class SplashPage implements FirebaseListener {
   }
 
   OnAuthError(error: FirebaseAuthError): void {
-    this.showToast("error");
+    if(error == FirebaseAuthError.SIGNINERROR) {
+      this.showToast("SignInError");
+    }
+  }
+
+  OnDataListComplete(dataList: any[]): void {
+    const list = dataList as Task[];
+    console.log(list)
   }
 
   showToast(message: string) {

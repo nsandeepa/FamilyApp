@@ -17,7 +17,7 @@ import { SplashPage } from '../pages/splash/splash';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { FirebaseConfig } from '../Config/FirebaseConfig';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
-
+      
 @NgModule({
   declarations: [
     MyApp,
