@@ -6,4 +6,5 @@ export interface FirebaseListener {
     OnSignInCheck(email: string): void;
     OnSignOutComplete(): void;
     OnAuthError(error: FirebaseAuthError): void;
+    OnDataListComplete(dataList: any[]): void;
 }
