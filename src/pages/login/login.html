@@ -5,76 +5,47 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>
-        Family App
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
-
-  <ion-content class="sign-up">
-
-    <ion-grid class="sign-up-head">
-        <ion-row>
-          <ion-col col-12>
-              <h3 text-center>SIGN IN</h3>
-          </ion-col>
-        </ion-row>
-    </ion-grid>
-
-<ion-grid class="sign-up-logo-row">
+  <ion-navbar color="primary">
+    <ion-title>
+      Family App
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="sign-up">
+  <ion-grid class="sign-up-head">
     <ion-row>
-        <img src="assets/imgs/company_logo.png" alt="">
-    </ion-row>     
-</ion-grid>
-
-    <ion-grid>
-        <ion-row>
-          <ion-col col-12>
-            <ion-item class="transparent-input">
-              <ion-label floating color="white">Mobile Number</ion-label>
+      <ion-col col-12>
+        <h3 text-center>SIGN IN</h3>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid class="sign-up-logo-row">
+    <ion-row>
+      <img src="assets/imgs/company_logo.png" alt="">
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-12>
+        <ion-item class="transparent-input">
+          <ion-label floating color="white">Mobile Number</ion-label>
           <ion-input type="number" [(ngModel)]="user.email"></ion-input>
-      </ion-item>
-              <ion-item class="transparent-input">
-                    <ion-label floating color="white">Password</ion-label>
-                  <ion-input type="password" [(ngModel)]="user.password"></ion-input>
-                </ion-item>
-    
-
-
-                
-                <div>
-                    <button ion-button block round class="pink-button" (click)="signIn()">Sign In</button>
-                </div>
-                
-          </ion-col>
-        </ion-row>
-
-        <ion-row>
-          <ion-col col-12>
-              <p class="already-user">Not a member? <a href="" (click)="goToSignUp()">Sign Up</a></p>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+        </ion-item>
+        <ion-item class="transparent-input">
+          <ion-label floating color="white">Password</ion-label>
+          <ion-input type="password" [(ngModel)]="user.password"></ion-input>
+        </ion-item>
+        <div>
+          <button ion-button block round class="pink-button" (click)="signIn()">Sign In</button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col col-12>
+        <p class="already-user">Not a member?
+          <a (click)="goToSignUp()">Sign Up</a>
+        </p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
-
-
-
-
-  <!-- <ion-content padding>
-    <h3 class="signInHeader">Sign In</h3>
-    <ion-item>
-      <ion-label floating color="primary">Mobile</ion-label>
-      <ion-input type="text" value=""></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating color="primary">Password</ion-label>
-      <ion-input type="password" value=""></ion-input>
-    </ion-item>
-    <div padding>
-      <button ion-button color="primary" class="signInButton" (click)="signIn()" block round>Sign In</button>
-    </div>
-    <div class="center-div">
-      <p>Not a member?</p><button ion-button color="primary" (click)="goToSignUp()" clear small>Sign Up</button>
-    </div>
-  </ion-content> -->
