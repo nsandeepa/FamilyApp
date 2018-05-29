@@ -33,28 +33,28 @@
           <ion-col col-12>
               <ion-item class="transparent-input">
                     <ion-label floating color="white">Name</ion-label>
-                  <ion-input type="text" value="">
+                  <ion-input type="text" value="" [(ngModel)]="signupUser.name">
                 </ion-input>
                 </ion-item>
 
                 <ion-item class="transparent-input">
                     <ion-label floating color="white">Mobile Number</ion-label>
-                <ion-input type="number"></ion-input>
+                <ion-input type="number" [(ngModel)]="signupUser.email"></ion-input>
             </ion-item>
             
               <ion-item class="transparent-input">
                     <ion-label floating color="white">Password</ion-label>
-                  <ion-input type="password"></ion-input>
+                  <ion-input type="password"[(ngModel)]="signupUser.password"></ion-input>
                 </ion-item>
     
                 <ion-item class="transparent-input">
                         <ion-label floating color="white">Confirm Password</ion-label>
-                    <ion-input type="password"></ion-input>
+                    <ion-input type="password" [(ngModel)]="signupUser.confirmPassword"></ion-input>
                 </ion-item>
 
                 
                 <div>
-                    <button ion-button block round class="pink-button">Sign Up</button>
+                    <button ion-button block round class="pink-button" (click)="signUp()">Sign Up</button>
                 </div>
                 
           </ion-col>
@@ -62,7 +62,7 @@
 
         <ion-row>
           <ion-col col-12>
-              <p class="already-user">Already a member? <a href="">Sign In</a></p>
+              <p class="already-user">Already a member? <a href="" (click)="goToSignIn()">Sign In</a></p>
           </ion-col>
         </ion-row>
       </ion-grid>
