@@ -1,6 +1,7 @@
 # FamilyApp
 
 #Environment Setup : Ionic
+<p>
 1. Install NodeJS (If already exists update)
 2. Check npm -> npm -v
 3. Install Java8 (1.8) (only Java8 supported. Java9 has issues)
@@ -20,3 +21,25 @@ To run on Android Device
 15. Connect the android device
 16. Then run -> adb devices
 17. if it shows your device then run run.sh file in project folder
+</p>
+<p>
+How to integrate firebase into a page
+
+1. Implement FirebaseListener interface with your page class
+2. Then override its methods
+3. call FirebaseService.setFirebaseListener(this) in your page constructor
+
+<code>
+exprot class MyPage implements FirebaseListener {
+    constructor(public firebaseService: FirebaseService) {
+        this.firebaseService.setFirebaseListener(this);
+    }
+
+    //Override
+    OnSignUpComplete(email: string): void {
+
+    }
+    //So on...
+}
+</code>
+</p>
