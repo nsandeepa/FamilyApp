@@ -14,3 +14,96 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
+// common css start
+
+.toolbar-background-md{
+    background-color: #d83749;
+}
+
+.nav-left{
+    color: white;
+}
+
+.nav-title{
+    text-align: center;
+    color: white;
+}
+
+.nav-right{
+    text-align: right;
+    color: white;
+}
+
+.nav-title .toolbar-title-md{
+    color: white;
+}
+
+// common css ends
+
+// sign up css start
+.sign-up{
+    background: radial-gradient(circle, #726b6c, #3c3637);
+}
+
+.sign-up-head{
+    background-color: #332f30;
+    color: white;   
+}
+
+.pink-button{
+    background-color: #d83749;
+    margin: 30px auto;
+    width: 90%;
+}
+
+.already-user{
+    text-align: center;
+    color: white;
+}
+
+.transparent-input{
+    background-color: transparent;
+    color: white;
+    padding-right: 16px;
+}
+
+.sign-up-logo-row img{
+    margin: 0 auto;
+    margin-top: 30px;
+    height: 80px;
+}
+
+.transparent-input ion-label{
+    margin-top: 0;
+}
+
+.transparent-input .item-md.item-input.item-input-has-focus .item-inner, .item-md.item-input.input-has-focus .item-inner{
+    border-bottom-color: white;
+    -webkit-box-shadow: inset 0 -1px 0 0 white;
+    box-shadow: inset 0 -1px 0 0 white;
+}
+
+.transparent-input .item-input-has-focus .label-md[stacked], input-has-focus .label-md[stacked], .item-input-has-focus .label-md[floating], .input-has-focus .label-md[floating]{
+    color: white;
+}
+
+// sign up css end
+
+// home css start
+
+// .pro-pic-row img{
+//     height: 200px;
+//     border-radius: 50%;
+// }
+
+.task-image{
+    height: 100px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+// home css ends
