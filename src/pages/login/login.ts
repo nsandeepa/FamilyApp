@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { Component ,ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController,AlertController  } from 'ionic-angular';
 
 import { Config } from '../../Config/AppConfig';
 import { SignUpPage } from '../sign-up/sign-up';
-
+import { User } from '../../models/User';
+ 
 /**
  * Generated class for the LoginPage page.
  *
@@ -18,7 +19,14 @@ import { SignUpPage } from '../sign-up/sign-up';
 })
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController) {
+  // @ViewChild('mobileno') mobileno;
+  // @ViewChild('password') password;
+  user: User = {
+    email: "",
+    password: ""
+  }
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,private alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -26,11 +34,25 @@ export class LoginPage {
   }
 
   signIn() {
+
+    if(!this.user.email && !this.user.password){
+      console.log("empty");
+        let alert = this.alertCtrl.create({
+          title: 'Login Error',
+          subTitle: 'Fields cannot be empty',
+          buttons: ['Dismiss']
+        });
+        alert.present();
+       
+    }else{
     let signInToast = this.toastCtrl.create({
-      message: Config.API_DOMAIN,
+      message: "Signed In",
       duration: 1000
     });
     signInToast.present();
+  }
+     console.log(this.user.password);
+    
   }
 
   goToSignUp() {
