@@ -20,3 +20,24 @@ To run on Android Device
 15. Connect the android device
 16. Then run -> adb devices
 17. if it shows your device then run run.sh file in project folder
+<p>
+How to integrate firebase into a page
+
+1. Implement FirebaseListener interface with your page class
+2. Then override its methods
+3. call FirebaseService.setFirebaseListener(this) in your page constructor
+
+<code>
+exprot class MyPage implements FirebaseListener {
+    constructor(public firebaseService: FirebaseService) {
+        this.firebaseService.setFirebaseListener(this);
+    }
+
+    //Override
+    OnSignUpComplete(email: string): void {
+
+    }
+    //So on...
+}
+</code>
+</p>
