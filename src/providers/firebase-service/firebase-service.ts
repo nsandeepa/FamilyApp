@@ -4,11 +4,11 @@ import { ToastController } from 'ionic-angular';
 
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
-//import { User } from 'firebase/app';
 import { Observable } from 'rxjs/Observable';
 
 import { User } from '../../models/User';
 import { FirebaseListener } from './FirebaseListener';
+import { FirebaseAuthError } from './FirebaseAuthError';
 
 /*
   Generated class for the FirebaseServiceProvider provider.
@@ -32,10 +32,20 @@ export class FirebaseServiceProvider {
   public signUpUser(user: User): void {
     this.fireAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
       .then((response)=> {
-        console.log(response);
+        if(response) {
+          if(this.firebaseListener) {
+            this.firebaseListener.OnSignUpComplete(response.email);
+          }
+        } else {
+          if(this.firebaseListener) {
+            this.firebaseListener.OnSignUpComplete(null);
+          }
+        }
       })
       .catch((error)=> {
-        console.log(error);
+        if(this.firebaseListener) {
+          this.firebaseListener.OnAuthError(FirebaseAuthError.SIGNUPERROR);
+        }
       })
   }
 
@@ -53,7 +63,7 @@ export class FirebaseServiceProvider {
         }
       })
       .catch((error)=> {
-        console.log(error);
+        this.firebaseListener.OnAuthError(FirebaseAuthError.SIGNINERROR);
       })
   }
 
@@ -72,14 +82,20 @@ export class FirebaseServiceProvider {
   }
 
   public signOut(): void {
-    this.fireAuth.auth.signOut();
+    this.fireAuth.auth.signOut()
+      .then((res)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnSignOutComplete();
+        }
+      })
+      .catch((error)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnAuthError(FirebaseAuthError.SIGNOUTERROR);
+        }
+      })
   }
 
-  public deleteUser(): void {
-    const user: User = {
-      email: "nilupul@gmail.com",
-      password: "XXX111"
-    };
+  public deleteUser(user: User): void {
     this.fireAuth.auth.signInWithEmailAndPassword(user.email, user.password)
       .then((res)=> {
         console.log(res);
@@ -93,15 +109,9 @@ export class FirebaseServiceProvider {
       })
   }
 
-  showToast(message: string) {
-    let signInToast = this.toastCtrl.create({
-      message: message,
-      duration: 1000
-    });
-    signInToast.present();
-  }
-
   setFirebaseListener(firebaseListener) {
     this.firebaseListener = firebaseListener;
   }
+
+  
 }

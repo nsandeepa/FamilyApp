@@ -10,6 +10,7 @@ import { LoginPage } from '../login/login';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { User } from '../../models/User';
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
+import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 
 /**
  * Generated class for the SplashPage page.
@@ -35,6 +36,15 @@ import { FirebaseListener } from '../../providers/firebase-service/FirebaseListe
 export class SplashPage implements FirebaseListener {
 
   isLoggedIn: boolean;
+
+  items = [
+    {
+      "email": "sdafasdf"
+    },
+    {
+      "email": "234234"
+    }
+  ];
 
   public usersRef: Observable<any[]>;
   //public userArray: User[];
@@ -97,7 +107,6 @@ export class SplashPage implements FirebaseListener {
   }
 
   checkSignIn() {
-    this.showToast("Checking");
     this.firebaseService.checkSigning();
   }
 
@@ -106,19 +115,27 @@ export class SplashPage implements FirebaseListener {
   }
 
   deleteUser() {
-    this.firebaseService.deleteUser();
+    this.firebaseService.deleteUser(null);
   }
 
-  OnSignUpComplete(email: string) {
-
+  OnSignUpComplete(email: string): void {
+    this.showToast(email)
   }
 
-  OnSignInComplete(email: string) {
+  OnSignInComplete(email: string): void {
     this.showToast(email);
   }
 
   OnSignInCheck(email: string): void {
     this.showToast(email);
+  }
+
+  OnSignOutComplete(): void {
+
+  }
+
+  OnAuthError(error: FirebaseAuthError): void {
+    this.showToast("error");
   }
 
   showToast(message: string) {
