@@ -10,7 +10,7 @@
 
 .pink-button{
     background-color: #d83749;
-    margin: 15px auto;
+    margin: 30px auto;
     width: 90%;
 }
 
@@ -23,6 +23,16 @@
     background-color: transparent;
     color: white;
     padding-right: 16px;
+}
+
+.sign-up-logo-row img{
+    margin: 0 auto;
+    margin-top: 30px;
+    height: 80px;
+}
+
+.transparent-input ion-label{
+    margin-top: 0;
 }
 
 // sign up css end
