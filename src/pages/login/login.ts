@@ -4,7 +4,9 @@ import { IonicPage, NavController, NavParams, ToastController,AlertController  }
 import { Config } from '../../Config/AppConfig';
 import { SignUpPage } from '../sign-up/sign-up';
 import { User } from '../../models/User';
- 
+import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service'
+import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
+import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError'; 
 /**
  * Generated class for the LoginPage page.
  *
@@ -17,7 +19,7 @@ import { User } from '../../models/User';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements FirebaseListener {
 
   // @ViewChild('mobileno') mobileno;
   // @ViewChild('password') password;
@@ -26,7 +28,13 @@ export class LoginPage {
     password: ""
   }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController,private alertCtrl: AlertController) {
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public toastCtrl: ToastController,
+    private alertCtrl: AlertController,
+    public firebaseService: FirebaseServiceProvider) {
+      this.firebaseService.setFirebaseListener(this);
   }
 
   ionViewDidLoad() {
@@ -50,13 +58,34 @@ export class LoginPage {
       duration: 1000
     });
     signInToast.present();
+    this.user.email = this.user.email.concat( "@gmail.com" );
+     console.log(this.user.email);
+     this.firebaseService.signUpUser(this.user);
   }
-     console.log(this.user.password);
-    
   }
 
   goToSignUp() {
     this.navCtrl.push(SignUpPage);
   }
+  OnSignUpComplete(email: string){
+
+  }
+  OnSignInComplete(email: string){
+    let signInToast = this.toastCtrl.create({
+      message: email,
+      duration: 1000
+    });
+    signInToast.present();
+  }
+  OnSignInCheck(email: string){
+
+  }
+  OnSignOutComplete(){
+
+  }
+  OnAuthError(error: FirebaseAuthError){
+
+  }
+
 
 }
