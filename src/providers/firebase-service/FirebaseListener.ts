@@ -7,4 +7,8 @@ export interface FirebaseListener {
     OnSignOutComplete(): void;
     OnAuthError(error: FirebaseAuthError): void;
     OnDataListComplete(dataList: any[]): void;
+    OnDataCreateComplete(): void;
+    OnDataUpdateComplete(): void;
+    OnDataRemoveComplete(): void;
+    OnDataOperatoinError(): void;
 }
