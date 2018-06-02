@@ -59,30 +59,6 @@ export class SplashPage implements FirebaseListener {
     public toastCtrl: ToastController,
     public firebaseService: FirebaseServiceProvider) {
       this.firebaseService.setFirebaseListener(this);
-    // this.users = fireDb.list('/users', ref=> ref.orderByChild('email').equalTo('imesha.ag@gmail.com')).snapshotChanges();
-    // this.users.subscribe( data =>{
-    //   console.log(data.length)  
-    //   if (data) {
-    //     data.map( test =>{
-    //       console.log(test.key + " -> " + JSON.stringify(test.payload.val()));
-    //     });  		
-    //   } else {
-    //     console.log("No Data");
-    //   }
-    // });
-    //this.firebaseService.checkSigninig();
-  }
-
-  OnFirebaseData() {
-    // let dataToast = this.toastCtrl.create({
-    //   message: this.userArray[2].key,
-    //   duration: 1000
-    // });
-    // dataToast.present();
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SplashPage');
   }
 
   signUp() {
@@ -106,12 +82,25 @@ export class SplashPage implements FirebaseListener {
   }
 
   signOut() {
-    this.navCtrl.push(HomePage);
+    const user: User = {
+      email: "okitsme@gmail.com",
+      password: "sdfsf"
+    }
+    const task: Task = {
+      assignedTo: "xx@gmail.com",
+      createdBy: "noname@gmail.com",
+      createdOn: "01/06/2018",
+      finishedOn: -1,
+      photoURL: "null",
+      taskDescription: "AnyDescription --- 33333",
+      taskId: "nilupul@gmail.com_123",
+      taskName: "AnyTitle --- 33333"
+    };
+    this.firebaseService.removeData("/tasks", "-LDwS_Z_Ru5fzJ_pl2QZ");
   }
 
   deleteUser() {
-    //this.firebaseService.getList('/users');
-    this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
+    this.firebaseService.getList('/tasks');
   }
 
   OnSignUpComplete(email: string): void {
@@ -139,6 +128,22 @@ export class SplashPage implements FirebaseListener {
   OnDataListComplete(dataList: any[]): void {
     const list = dataList as Task[];
     console.log(list)
+  }
+
+  OnDataCreateComplete(): void {
+    this.showToast("Data Created");
+  }
+
+  OnDataUpdateComplete(): void {
+    this.showToast("Data Updated");
+  }
+
+  OnDataRemoveComplete(): void {
+    this.showToast("Data Removed");
+  }
+
+  OnDataOperatoinError(): void {
+
   }
 
   showToast(message: string) {

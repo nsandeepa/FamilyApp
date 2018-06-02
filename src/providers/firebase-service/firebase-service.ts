@@ -110,26 +110,69 @@ export class FirebaseServiceProvider {
   }
 
   public getList(path: string) {
-    this.fireDB.list(path).valueChanges()
+    this.fireDB.list(path).snapshotChanges()
         .subscribe((data)=> {
           if(this.firebaseListener) {
-            this.firebaseListener.OnDataListComplete(data as any[]);
+            const dataArray: Array<Object> = [];
+            data.forEach((res)=> {
+              dataArray.push({key: res.key, values: res.payload.val()})
+            });
+            this.firebaseListener.OnDataListComplete(dataArray as any[]);
           }
         });
   }
 
   public getListOrderedByChild(path: string, orderByChild: string, equalTo: string) {
-    this.fireDB.list(path, (ref)=> ref.orderByChild(orderByChild).equalTo(equalTo)).valueChanges()
+    this.fireDB.list(path, (ref)=> ref.orderByChild(orderByChild).equalTo(equalTo)).snapshotChanges()
         .subscribe((data)=> {
           if(this.firebaseListener) {
-            this.firebaseListener.OnDataListComplete(data as any[]);
+            const dataArray: Array<Object> = [];
+            data.forEach((res)=> {
+              dataArray.push({key: res.key, values: res.payload.val()})
+            });
+            this.firebaseListener.OnDataListComplete(dataArray as any[]);
           }
         });
+  }
+
+  public createData(path: string, object: any) {
+    this.fireDB.list(path).push(object)
+      .then((res)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnDataCreateComplete();
+        }
+      });
+  }
+
+  public updateData(path: string, key: string, newObject: any) {
+    this.fireDB.list(path, (ref)=> ref.orderByKey().equalTo(key)).update(key, newObject)
+      .then((res)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnDataUpdateComplete();
+        }
+      })
+      .catch((error)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnDataOperatoinError();
+        }
+      })
+  }
+
+  public removeData(path: string, key: string) {
+    this.fireDB.list(path).remove(key)
+      .then((res)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnDataRemoveComplete();
+        }
+      })
+      .catch((error)=> {
+        if(this.firebaseListener) {
+          this.firebaseListener.OnDataOperatoinError();
+        }
+      })
   }
 
   setFirebaseListener(firebaseListener) {
     this.firebaseListener = firebaseListener;
   }
-
-  
 }
