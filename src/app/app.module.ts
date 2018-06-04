@@ -18,6 +18,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { FirebaseConfig } from '../Config/FirebaseConfig';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { LoadingControllerProvider } from '../providers/loading-controller/loading-controller';
+import { UtilityProvider } from '../providers/utility/utility';
       
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { LoadingControllerProvider } from '../providers/loading-controller/loadi
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
-    LoadingControllerProvider
+    LoadingControllerProvider,
+    UtilityProvider
   ]
 })
 export class AppModule {}

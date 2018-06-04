@@ -5,6 +5,9 @@ import { FirebaseListener } from '../../providers/firebase-service/FirebaseListe
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { FirebaseServiceProvider } from '../../providers/firebase-service/firebase-service';
 import { Task } from '../../models/Task';
+import { LoadingControllerProvider } from '../../providers/loading-controller/loading-controller';
+import { LoginPage } from '../login/login';
+import { UtilityProvider } from '../../providers/utility/utility';
 
 @Component({
   selector: 'page-home',
@@ -12,46 +15,54 @@ import { Task } from '../../models/Task';
 })
 export class HomePage implements FirebaseListener {
 
-  uEmail:string;
-  items=[];
+  public userEmail: string;
+  public items: any = [];
 
- 
   constructor(
-    public navCtrl: NavController, 
-    public keyboard: Keyboard, 
+    public navCtrl: NavController,
+    public keyboard: Keyboard,
     public toastCtrl: ToastController,
-    public firebaseService: FirebaseServiceProvider) {
+    public firebaseService: FirebaseServiceProvider,
+    public loadingCtrl: LoadingControllerProvider,
+    public utilityCtrl: UtilityProvider
+  ) {
     this.firebaseService.setFirebaseListener(this);
-    this.checkSignIn();
-  }
-  checkSignIn() {
     this.firebaseService.checkSigning();
+    this.loadingCtrl.showLoader("dots", "Please wait...");
   }
-  
+
   OnSignUpComplete(email: string): void {
-    
+
   }
+
   OnSignInComplete(email: string): void {
-    
+
   }
+
   OnSignInCheck(email: string): void {
-    this.uEmail=email;
-    this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', this.uEmail); 
+    if (!email) {
+      this.loadingCtrl.dismissLoader();
+      this.navCtrl.setRoot(LoginPage);
+    } else {
+      this.userEmail = email;
+      this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', this.userEmail);
+    }
   }
   OnSignOutComplete(): void {
-   
+
   }
   OnAuthError(error: FirebaseAuthError): void {
-    
+
   }
   OnDataListComplete(dataList: any[]): void {
-    //const list = dataList as Task[];
-    //console.log(list.length);
-    for(let i=0; i < dataList.length; i++){ 
-      this.items.push(dataList[i]);
-   }
-    console.log(this.items) 
-    console.log(dataList[1].assignedTo) 
+    this.loadingCtrl.dismissLoader();
+    if (dataList.length == 0) {
+      this.utilityCtrl.showSimpleAlert("Oops!", "There are no task assigned to you right now. Check again later.", ["OK"]);
+    } else {
+      for (let i = 0; i < dataList.length; i++) {
+        this.items.push(dataList[i]);
+      }
+    }
   }
 
   OnDataCreateComplete(): void {
