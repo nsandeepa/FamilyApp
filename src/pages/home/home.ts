@@ -45,13 +45,28 @@ export class HomePage implements FirebaseListener {
     
   }
   OnDataListComplete(dataList: any[]): void {
-    const list = dataList as Task[];
+    //const list = dataList as Task[];
     //console.log(list.length);
-    for(let i=0; i < list.length; i++){ 
-      this.items.push(list[i]);
+    for(let i=0; i < dataList.length; i++){ 
+      this.items.push(dataList[i]);
    }
     console.log(this.items) 
-    console.log(list[1].assignedTo) 
+    console.log(dataList[1].assignedTo) 
   }
- 
+
+  OnDataCreateComplete(): void {
+
+  }
+
+  OnDataUpdateComplete(): void {
+
+  }
+
+  OnDataRemoveComplete(): void {
+
+  }
+
+  OnDataOperatoinError(): void {
+
+  }
 }

@@ -100,13 +100,9 @@ export class SplashPage implements FirebaseListener {
   }
 
   deleteUser() {
-<<<<<<< HEAD
    // this.firebaseService.getList('/users');
    // this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
    this.navCtrl.push(HomePage);
-=======
-    this.firebaseService.getList('/tasks');
->>>>>>> 4bd667e9848fb59a1a6d23d79665fe67c64dc73b
   }
 
   OnSignUpComplete(email: string): void {
