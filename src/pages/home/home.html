@@ -28,24 +28,24 @@
 <ion-content class="sign-up">
   <ion-grid>
     <ion-row class="pro-pic-row">
-      <ion-col>
+      <ion-col *ngFor="let item of items">
         
         <ion-card>
 
-          <ion-item>
-            <h2 class="task-title"><ion-icon name="alarm"></ion-icon> Clean the Room</h2>
+          <ion-item  >
+            <h2 class="task-title"><ion-icon name="alarm"></ion-icon>{{item.taskName}}</h2>
           </ion-item>
         
           <div class="task-image" style="background-image: url('../assets/imgs/tasks/room.jpg')"></div>
         
           <ion-card-content>
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry........</p>
+            <p>{{item.taskDescription}}</p>
           </ion-card-content>
           </ion-card>
 
       </ion-col> 
 
-      <ion-col>
+     <!--  <ion-col>
         
         <ion-card>
 
@@ -77,7 +77,7 @@
           </ion-card-content>
           </ion-card>
 
-      </ion-col>
+      </ion-col> -->
 
     </ion-row> 
   </ion-grid>
