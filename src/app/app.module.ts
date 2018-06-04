@@ -17,6 +17,7 @@ import { SplashPage } from '../pages/splash/splash';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { FirebaseConfig } from '../Config/FirebaseConfig';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import { LoadingControllerProvider } from '../providers/loading-controller/loading-controller';
       
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
     SplashScreen,
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FirebaseServiceProvider
+    FirebaseServiceProvider,
+    LoadingControllerProvider
   ]
 })
 export class AppModule {}

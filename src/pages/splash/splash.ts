@@ -12,6 +12,7 @@ import { User } from '../../models/User';
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { Task } from '../../models/Task';
+import { LoadingControllerProvider } from '../../providers/loading-controller/loading-controller';
 
 /**
  * Generated class for the SplashPage page.
@@ -19,33 +20,12 @@ import { Task } from '../../models/Task';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
-//  class User {
-//    public key: string;
-//    public details: any;
-//    constructor(key, details) {
-//      this.key = key;
-//      this.details = details;
-//    }
-//  }
-
 @IonicPage()
 @Component({
   selector: 'page-splash',
   templateUrl: 'splash.html'
 })
 export class SplashPage implements FirebaseListener {
-
-  isLoggedIn: boolean;
-
-  items = [
-    {
-      "email": "sdafasdf"
-    },
-    {
-      "email": "234234"
-    }
-  ];
 
   public usersRef: Observable<any[]>;
   public userArray: any[];
@@ -57,64 +37,29 @@ export class SplashPage implements FirebaseListener {
     public navParams: NavParams,
     public fireDb: AngularFireDatabase,
     public toastCtrl: ToastController,
-    public firebaseService: FirebaseServiceProvider) {
-      this.firebaseService.setFirebaseListener(this);
-  }
-
-  signUp() {
-    const user: User = {
-      email: "nilupul@gmail.com",
-      password: "XXX111"
-    };
-    this.firebaseService.signUpUser(user);
-  }
-
-  signIn() {
-    const user: User = {
-      email: "nilupul@gmail.com",
-      password: "XXX111"
-    };
-    this.firebaseService.signInUser(user);
-  }
-
-  checkSignIn() {
+    public firebaseService: FirebaseServiceProvider,
+    public loadingCtrl: LoadingControllerProvider
+  ) {
+    this.firebaseService.setFirebaseListener(this);
     this.firebaseService.checkSigning();
-  }
-
-  signOut() {
-    const user: User = {
-      email: "okitsme@gmail.com",
-      password: "sdfsf"
-    }
-    const task: Task = {
-      assignedTo: "xx@gmail.com",
-      createdBy: "noname@gmail.com",
-      createdOn: "01/06/2018",
-      finishedOn: -1,
-      photoURL: "null",
-      taskDescription: "AnyDescription --- 33333",
-      taskId: "nilupul@gmail.com_123",
-      taskName: "AnyTitle --- 33333"
-    };
-    this.firebaseService.removeData("/tasks", "-LDwS_Z_Ru5fzJ_pl2QZ");
-  }
-
-  deleteUser() {
-   // this.firebaseService.getList('/users');
-   // this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
-   this.navCtrl.push(HomePage);
+    this.loadingCtrl.showLoader("dots", "Checking...")
   }
 
   OnSignUpComplete(email: string): void {
-    this.showToast(email)
+
   }
 
   OnSignInComplete(email: string): void {
-    this.showToast(email);
+
   }
 
   OnSignInCheck(email: string): void {
-    this.showToast(email);
+    this.loadingCtrl.dismissLoader();
+    if(!email) {
+      this.navCtrl.setRoot(LoginPage);
+    } else {
+      this.navCtrl.setRoot(HomePage);
+    }
   }
 
   OnSignOutComplete(): void {
@@ -122,26 +67,23 @@ export class SplashPage implements FirebaseListener {
   }
 
   OnAuthError(error: FirebaseAuthError): void {
-    if(error == FirebaseAuthError.SIGNINERROR) {
-      this.showToast("SignInError");
-    }
+
   }
- 
+
   OnDataListComplete(dataList: any[]): void {
-    const list = dataList as Task[];
-    console.log(list)
-  } 
+
+  }
 
   OnDataCreateComplete(): void {
-    this.showToast("Data Created");
+
   }
 
   OnDataUpdateComplete(): void {
-    this.showToast("Data Updated");
+
   }
 
   OnDataRemoveComplete(): void {
-    this.showToast("Data Removed");
+
   }
 
   OnDataOperatoinError(): void {
