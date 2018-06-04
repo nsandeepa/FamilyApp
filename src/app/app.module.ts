@@ -19,6 +19,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { FirebaseConfig } from '../Config/FirebaseConfig';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
 import { FireStorageServiceProvider } from '../providers/fire-storage-service/fire-storage-service';
+import { LoadingControllerProvider } from '../providers/loading-controller/loading-controller';
       
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { FireStorageServiceProvider } from '../providers/fire-storage-service/fi
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
+    LoadingControllerProvider
     FireStorageServiceProvider
   ]
 })
