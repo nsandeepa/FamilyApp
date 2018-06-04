@@ -79,6 +79,22 @@ export class LoginPage implements FirebaseListener {
 
   }
 
+  OnDataCreateComplete(): void {
+
+  }
+
+  OnDataUpdateComplete(): void {
+
+  }
+
+  OnDataRemoveComplete(): void {
+
+  }
+
+  OnDataOperatoinError(): void {
+    
+  }
+
   showAlert(title: string, message: string): void {
     let alertMsg = this.alertCtrl.create({
       title: 'Login Error',
