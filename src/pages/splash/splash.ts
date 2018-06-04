@@ -110,8 +110,9 @@ export class SplashPage implements FirebaseListener {
   }
 
   deleteUser() {
-    //this.firebaseService.getList('/users');
-    this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
+   // this.firebaseService.getList('/users');
+   // this.firebaseService.getListOrderedByChild('/tasks', 'assignedTo', '2@gmail.com');
+   this.navCtrl.push(HomePage);
   }
 
   OnSignUpComplete(email: string): void {
@@ -135,11 +136,11 @@ export class SplashPage implements FirebaseListener {
       this.showToast("SignInError");
     }
   }
-
+ 
   OnDataListComplete(dataList: any[]): void {
     const list = dataList as Task[];
     console.log(list)
-  }
+  } 
 
   showToast(message: string) {
     let signInToast = this.toastCtrl.create({
