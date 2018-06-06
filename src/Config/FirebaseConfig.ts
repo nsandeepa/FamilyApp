@@ -3,7 +3,7 @@ export const FirebaseConfig = {
     authDomain: "familyapp-42b49.firebaseapp.com",
     databaseURL: "https://familyapp-42b49.firebaseio.com",
     projectId: "familyapp-42b49",
-    storageBucket: "",
+    storageBucket: "gs://familyapp-42b49.appspot.com",
     messagingSenderId: "324806391345"
 };
 

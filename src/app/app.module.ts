@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireStorageModule } from 'angularfire2/storage'
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -17,6 +18,7 @@ import { SplashPage } from '../pages/splash/splash';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { FirebaseConfig } from '../Config/FirebaseConfig';
 import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-service';
+import { FireStorageServiceProvider } from '../providers/fire-storage-service/fire-storage-service';
       
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
     AngularFireModule.initializeApp(FirebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     HttpClientModule
   ],
   bootstrap: [IonicApp],
@@ -50,7 +53,8 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
     SplashScreen,
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    FirebaseServiceProvider
+    FirebaseServiceProvider,
+    FireStorageServiceProvider
   ]
 })
 export class AppModule {}
