@@ -50,8 +50,7 @@ export class HomePage implements FirebaseListener {
     for(let i=0; i < dataList.length; i++){ 
       this.items.push(dataList[i]);
    }
-    console.log(this.items) 
-    console.log(dataList[1].assignedTo) 
+    console.log(this.items); 
   }
 
   OnDataCreateComplete(): void {
