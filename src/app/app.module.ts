@@ -55,7 +55,7 @@ import { LoadingControllerProvider } from '../providers/loading-controller/loadi
     Keyboard,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseServiceProvider,
-    LoadingControllerProvider
+    LoadingControllerProvider,
     FireStorageServiceProvider
   ]
 })
