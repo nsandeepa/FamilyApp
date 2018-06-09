@@ -52,7 +52,7 @@ export class SignUpPage {
   }
 
   goToSignIn() {
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.pop();
   }
 
   OnSignUpComplete(email: string): void {
