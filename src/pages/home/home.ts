@@ -17,6 +17,7 @@ export class HomePage implements FirebaseListener {
 
   public userEmail: string;
   public items: any = [];
+  public isDataAvailable = true;
 
   constructor(
     public navCtrl: NavController,
@@ -57,8 +58,12 @@ export class HomePage implements FirebaseListener {
   OnDataListComplete(dataList: any[]): void {
     this.loadingCtrl.dismissLoader();
     if (dataList.length == 0) {
+      this.isDataAvailable = false;
+      this.items = [];
       this.utilityCtrl.showSimpleAlert("Oops!", "There are no task assigned to you right now. Check again later.", ["OK"]);
     } else {
+      this.isDataAvailable = true;
+      this.items = [];
       for (let i = 0; i < dataList.length; i++) {
         this.items.push(dataList[i]);
       }
