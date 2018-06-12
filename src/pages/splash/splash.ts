@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ViewController } from 'ionic-angular';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
@@ -13,6 +13,8 @@ import { FirebaseListener } from '../../providers/firebase-service/FirebaseListe
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { Task } from '../../models/Task';
 import { LoadingControllerProvider } from '../../providers/loading-controller/loading-controller';
+import { SplashScreen } from '@ionic-native/splash-screen';
+
 
 /**
  * Generated class for the SplashPage page.
@@ -29,6 +31,8 @@ export class SplashPage implements FirebaseListener {
 
   public usersRef: Observable<any[]>;
   public userArray: any[];
+  public splashFinished: Boolean;
+  public email: string;
 
   public users: Observable<any[]>;
 
@@ -38,13 +42,27 @@ export class SplashPage implements FirebaseListener {
     public fireDb: AngularFireDatabase,
     public toastCtrl: ToastController,
     public firebaseService: FirebaseServiceProvider,
-    public loadingCtrl: LoadingControllerProvider
+    public loadingCtrl: LoadingControllerProvider,
+    public splashScreen: SplashScreen,
+    public viewCtrl: ViewController
   ) {
     this.firebaseService.setFirebaseListener(this);
     this.firebaseService.checkSigning();
-    this.loadingCtrl.showLoader("dots", "Checking...")
+    // this.loadingCtrl.showLoader("dots", "Checking...")
   }
-
+  ionViewDidEnter() {
+ 
+    this.splashScreen.hide();
+ 
+    setTimeout(() => {
+      // this.viewCtrl.dismiss();
+      if(!this.email) {
+        this.navCtrl.setRoot(LoginPage);
+      } else {
+        this.navCtrl.setRoot(HomePage);
+      }
+    }, 4000);
+  }
   OnSignUpComplete(email: string): void {
 
   }
@@ -54,12 +72,14 @@ export class SplashPage implements FirebaseListener {
   }
 
   OnSignInCheck(email: string): void {
-    this.loadingCtrl.dismissLoader();
-    if(!email) {
-      this.navCtrl.setRoot(LoginPage);
-    } else {
-      this.navCtrl.setRoot(HomePage);
-    }
+    // this.loadingCtrl.dismissLoader();
+    this.splashFinished=true;
+    this.email=email;
+    // if(!email) {
+    //   this.navCtrl.setRoot(LoginPage);
+    // } else {
+    //   this.navCtrl.setRoot(HomePage);
+    // }
   }
 
   OnSignOutComplete(): void {
@@ -93,7 +113,7 @@ export class SplashPage implements FirebaseListener {
   showToast(message: string) {
     let signInToast = this.toastCtrl.create({
       message: message,
-      duration: 1000
+      duration: 5000
     });
     signInToast.present();
   }
