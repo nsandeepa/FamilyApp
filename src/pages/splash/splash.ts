@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FCM } from '@ionic-native/fcm';
 
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
@@ -38,11 +39,28 @@ export class SplashPage implements FirebaseListener {
     public fireDb: AngularFireDatabase,
     public toastCtrl: ToastController,
     public firebaseService: FirebaseServiceProvider,
-    public loadingCtrl: LoadingControllerProvider
+    public loadingCtrl: LoadingControllerProvider,
+    public fcmCtrl: FCM
   ) {
     this.firebaseService.setFirebaseListener(this);
     this.firebaseService.checkSigning();
     this.loadingCtrl.showLoader("dots", "Checking...")
+    this.registerFCM();
+  }
+
+  registerFCM() {
+    this.fcmCtrl.subscribeToTopic("test");
+    this.fcmCtrl.getToken()
+      .then((token)=> {
+        this.firebaseService.createData("/testing", {token: token});
+      });
+  
+    this.fcmCtrl.onNotification().subscribe(data => {
+      if(data.wasTapped){
+        this.showToast("Backgrounddddd");
+      } else {
+        this.showToast("Foregrounddddd");
+      }});
   }
 
   OnSignUpComplete(email: string): void {
