@@ -26,6 +26,9 @@
 <ion-content class="sign-up">
   <ion-grid>
     <ion-row class="pro-pic-row">
+      <ion-col *ngIf="!isDataAvailable">
+        <h4 class="centerText">No items to display...</h4>
+      </ion-col>
       <ion-col *ngFor="let item of items">
         <ion-card>
           <ion-item>
