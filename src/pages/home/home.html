@@ -33,7 +33,7 @@
               <pre><ion-icon name="md-checkbox-outline"></ion-icon>  {{item.values.taskName}}</pre>
             </h2>
           </ion-item>
-          <div class="task-image" style="background-image: url('../assets/imgs/tasks/room.jpg')"></div>
+          <div class="task-image" style="background-image: url('../assets/imgs/tasks/room.jpg')" (click)="openModal(item)" ></div>
           <ion-card-content>
             <ion-item>{{item.values.taskDescription}}</ion-item>
           </ion-card-content>

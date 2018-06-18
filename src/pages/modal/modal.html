@@ -1,0 +1,37 @@
+<!--
+  Generated template for the ModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>modalPage</ion-title>
+     <ion-buttons end>
+       <button ion-button (click)="closeModal()">close</button>
+     </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+   <ion-grid>
+    <ion-row class="pro-pic-row">
+      <ion-col *ngFor="let item of data">
+        <ion-card>
+          <ion-item>
+            <h2>
+              <pre><ion-icon name="md-checkbox-outline"></ion-icon>  {{item}}</pre>
+            </h2>
+          </ion-item>
+          <div class="task-image" style="background-image: url('../assets/imgs/tasks/room.jpg')" ></div>
+          <ion-card-content>
+            <ion-item>{{item}}</ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

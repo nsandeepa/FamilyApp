@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController,ModalController } from 'ionic-angular';
 import { Keyboard } from '@ionic-native/keyboard';
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
@@ -20,6 +20,7 @@ export class HomePage implements FirebaseListener {
 
   constructor(
     public navCtrl: NavController,
+    private modal: ModalController,
     public keyboard: Keyboard,
     public toastCtrl: ToastController,
     public firebaseService: FirebaseServiceProvider,
@@ -79,5 +80,11 @@ export class HomePage implements FirebaseListener {
 
   OnDataOperatoinError(): void {
 
+  }
+
+  openModal(item){
+    console.log(item);
+    const myModal=this.modal.create('ModalPage',{data:item});
+    myModal.present();
   }
 }
