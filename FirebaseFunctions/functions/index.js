@@ -36,7 +36,7 @@ exports.taskAssignedNotification = functions.database.ref("/tasks/{taskId}").onU
     const afterAssignedVal = change.after.toJSON().isAssigned;
     if(!beforeAssignedVal && afterAssignedVal) {
         const assignedUserEmail = change.after.toJSON().assignedTo;
-        const assignedUserNotificationTokenPromise = admin.database().ref("/users").orderByChild("emaiil").equalTo(assignedUserEmail).once('value');
+        const assignedUserNotificationTokenPromise = admin.database().ref("/users").orderByChild("email").equalTo(assignedUserEmail).once('value');
         return Promise.all([assignedUserNotificationTokenPromise])
             .then((result)=> {
                 const valueObject = result[0].val();

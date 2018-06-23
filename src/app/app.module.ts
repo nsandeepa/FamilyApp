@@ -22,6 +22,10 @@ import { FirebaseServiceProvider } from '../providers/firebase-service/firebase-
 import { FireStorageServiceProvider } from '../providers/fire-storage-service/fire-storage-service';
 import { LoadingControllerProvider } from '../providers/loading-controller/loading-controller';
 import { UtilityProvider } from '../providers/utility/utility';
+import { MainPage } from '../pages/main/main';
+import { NotificationPage } from '../pages/notification/notification';
+import { ProfilePage } from '../pages/profile/profile';
+import { TaskPage } from '../pages/task/task';
 
       
 @NgModule({
@@ -30,7 +34,11 @@ import { UtilityProvider } from '../providers/utility/utility';
     SplashPage,
     LoginPage,
     SignUpPage,
-    HomePage
+    MainPage,
+    HomePage,
+    NotificationPage,
+    ProfilePage,
+    TaskPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +58,11 @@ import { UtilityProvider } from '../providers/utility/utility';
     SplashPage,
     LoginPage,
     SignUpPage,
-    HomePage
+    MainPage,
+    HomePage,
+    NotificationPage,
+    ProfilePage,
+    TaskPage
   ],
   providers: [
     StatusBar,

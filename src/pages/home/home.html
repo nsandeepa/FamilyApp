@@ -1,42 +1,36 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      <ion-icon name="home"></ion-icon>
-    Home
-    </ion-title>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-header>
   <ion-navbar>
     <ion-row>
-      <ion-col col-4 class="nav-left">
-        <ion-icon name="menu"></ion-icon>
+      <ion-col col-2 class="nav-left" align-self-center>
+        <button ion-button menuToggle icon-only>
+          <ion-icon name="menu"></ion-icon>
+        </button>
       </ion-col>
-      <ion-col col-4 class="nav-title">
-        <ion-title>HOME</ion-title>
+      <ion-col col-8 class="nav-title" align-self-center>
+        <ion-title>
+          <ion-icon name="home"></ion-icon> HOME</ion-title>
       </ion-col>
-      <ion-col col-4 class="nav-right">
-        <ion-icon name="more"></ion-icon>
+      <ion-col col-2 class="nav-right" align-self-center>
+        <ion-icon name="more" (click)="logOutDialog()"></ion-icon>
       </ion-col>
     </ion-row>
   </ion-navbar>
 </ion-header>
 
-<ion-content class="sign-up">
+<ion-content class="content">
   <ion-grid>
     <ion-row class="pro-pic-row">
       <ion-col *ngIf="!isDataAvailable">
         <h4 class="centerText">No items to display...</h4>
       </ion-col>
       <ion-col *ngFor="let item of items">
-        <ion-card>
+        <ion-card (click)="openItem(item)">
           <ion-item>
             <h2>
-              <pre><ion-icon name="md-checkbox-outline"></ion-icon>  {{item.values.taskName}}</pre>
+              <ion-icon name="checkbox"></ion-icon> {{item.values.taskName}}
             </h2>
           </ion-item>
-          <div class="task-image" style="background-image: url('../assets/imgs/tasks/room.jpg')"></div>
+          <div class="task-image" [ngStyle]="{'background-image': 'url(' + item.values.photoURL + ')'}"></div>
           <ion-card-content>
             <ion-item>{{item.values.taskDescription}}</ion-item>
           </ion-card-content>

@@ -8,6 +8,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { HomePage } from '../home/home';
+import { FCM } from '@ionic-native/fcm';
 /**
  * Generated class for the LoginPage page.
  *
@@ -32,7 +33,8 @@ export class LoginPage implements FirebaseListener {
     public navParams: NavParams,
     public toastCtrl: ToastController,
     private alertCtrl: AlertController,
-    public firebaseService: FirebaseServiceProvider
+    public firebaseService: FirebaseServiceProvider,
+    public fcmCtrl: FCM
   ) {
     this.firebaseService.setFirebaseListener(this);
   }
@@ -55,12 +57,7 @@ export class LoginPage implements FirebaseListener {
   }
 
   OnSignInComplete(email: string): void {
-    let signInToast = this.toastCtrl.create({
-      message: "Signed In",
-      duration: 1000
-    });
-    signInToast.present();
-    this.navCtrl.setRoot(HomePage);
+    this.firebaseService.getListOrderedByChild("/users", "email", email);
   }
 
   OnSignInCheck(email: string): void {
@@ -76,7 +73,11 @@ export class LoginPage implements FirebaseListener {
   }
 
   OnDataListComplete(dataList: any[]): void {
-
+    this.fcmCtrl.getToken()
+      .then((token)=> {
+        dataList[0].values.notificationToken = token;
+        this.firebaseService.updateData("/users", dataList[0].key, dataList[0].values);
+      });
   }
 
   OnDataCreateComplete(): void {
@@ -84,7 +85,7 @@ export class LoginPage implements FirebaseListener {
   }
 
   OnDataUpdateComplete(): void {
-
+    this.navCtrl.setRoot(HomePage);
   }
 
   OnDataRemoveComplete(): void {
@@ -97,8 +98,8 @@ export class LoginPage implements FirebaseListener {
 
   showAlert(title: string, message: string): void {
     let alertMsg = this.alertCtrl.create({
-      title: 'Login Error',
-      subTitle: 'Fields cannot be empty',
+      title: title,
+      subTitle: message,
       buttons: ['Dismiss']
     });
     alertMsg.present();

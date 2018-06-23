@@ -43,7 +43,7 @@
 // common css ends
 
 // sign up css start
-.sign-up{
+.content{
     background: radial-gradient(circle, #726b6c, #3c3637);
 }
 
@@ -107,3 +107,8 @@
 
 
 // home css ends
+
+//Overrides
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+    color: #ffffff;
+}

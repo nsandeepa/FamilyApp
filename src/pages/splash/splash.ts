@@ -14,6 +14,7 @@ import { FirebaseListener } from '../../providers/firebase-service/FirebaseListe
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { Task } from '../../models/Task';
 import { LoadingControllerProvider } from '../../providers/loading-controller/loading-controller';
+import { MainPage } from '../main/main';
 
 /**
  * Generated class for the SplashPage page.
@@ -49,17 +50,11 @@ export class SplashPage implements FirebaseListener {
   }
 
   registerFCM() {
-    this.fcmCtrl.subscribeToTopic("test");
-    this.fcmCtrl.getToken()
-      .then((token)=> {
-        this.firebaseService.createData("/testing", {token: token});
-      });
-  
     this.fcmCtrl.onNotification().subscribe(data => {
       if(data.wasTapped){
         this.showToast("Backgrounddddd");
       } else {
-        this.showToast("Foregrounddddd");
+        this.showToast("You have a new task!");
       }});
   }
 
@@ -76,7 +71,7 @@ export class SplashPage implements FirebaseListener {
     if(!email) {
       this.navCtrl.setRoot(LoginPage);
     } else {
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot(MainPage);
     }
   }
 

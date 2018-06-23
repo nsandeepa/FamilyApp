@@ -1,6 +1,7 @@
 export class SignupUser {
-    public email: string;
-    public password: string;
     public name: string;
+    public email: string;
+    public adminEmail: string;
+    public password: string;
     public confirmPassword: string;
 }
