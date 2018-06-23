@@ -34,7 +34,7 @@ export class FirebaseServiceProvider {
       .then((response)=> {
         if(response) {
           if(this.firebaseListener) {
-            this.firebaseListener.OnSignUpComplete(response.email);
+            this.firebaseListener.OnSignUpComplete(response.user.email);
           }
         } else {
           if(this.firebaseListener) {

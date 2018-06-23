@@ -7,6 +7,7 @@ import { FirebaseServiceProvider } from '../../providers/firebase-service/fireba
 import { FirebaseListener } from '../../providers/firebase-service/FirebaseListener';
 import { FirebaseAuthError } from '../../providers/firebase-service/FirebaseAuthError';
 import { HomePage } from '../home/home';
+import { FCM } from '@ionic-native/fcm';
 
 /**
  * Generated class for the SignUpPage page.
@@ -20,12 +21,13 @@ import { HomePage } from '../home/home';
   selector: 'page-sign-up',
   templateUrl: 'sign-up.html',
 })
-export class SignUpPage {
+export class SignUpPage implements FirebaseListener {
 
   public signupUser: SignupUser = {
-    email: "",
-    password: "",
     name: "",
+    email: "",
+    adminEmail: "",
+    password: "",
     confirmPassword: ""
   }
 
@@ -33,7 +35,8 @@ export class SignUpPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
-    public firebaseService: FirebaseServiceProvider
+    public firebaseService: FirebaseServiceProvider,
+    public fcmCtrl: FCM
   ) {
     this.firebaseService.setFirebaseListener(this);
   }
@@ -47,6 +50,7 @@ export class SignUpPage {
       this.showAlert("Login Error", "Password must be at least 6 characters.");
     } else {
       this.signupUser.email = this.signupUser.email.concat("@gmail.com");
+      this.signupUser.adminEmail = this.signupUser.adminEmail.concat("@gmail.com");
       this.firebaseService.signUpUser(this.signupUser);
     }
   }
@@ -54,9 +58,18 @@ export class SignUpPage {
   goToSignIn() {
     this.navCtrl.pop();
   }
-
+  
   OnSignUpComplete(email: string): void {
-    this.navCtrl.setRoot(HomePage);
+    this.fcmCtrl.getToken()
+      .then((token)=> {
+        const newUser = {
+          email: email,
+          name: this.signupUser.name,
+          adminEmail: this.signupUser.adminEmail,
+          notificationToken: token
+        };
+        this.firebaseService.createData("/users", newUser);
+      });
   }
 
   OnSignInComplete(email: string): void {
@@ -73,6 +86,26 @@ export class SignUpPage {
   
   OnAuthError(error: FirebaseAuthError): void {
 
+  }
+
+  OnDataCreateComplete(): void {
+    this.navCtrl.setRoot(HomePage);
+  }
+
+  OnDataListComplete(dataList: any[]) {
+
+  }
+
+  OnDataUpdateComplete(): void {
+
+  }
+
+  OnDataRemoveComplete(): void {
+
+  }
+
+  OnDataOperatoinError(): void {
+    
   }
 
   showAlert(title: string, message: string): void {

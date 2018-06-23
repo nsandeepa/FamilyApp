@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoadingController, Loading, AlertController, Alert } from 'ionic-angular';
+import { AlertDialogListener } from './AlertDialogListener';
 
 /*
   Generated class for the UtilityProvider provider.
@@ -34,7 +35,7 @@ export class UtilityProvider {
     this.loader.dismiss();
   }
 
-  public showSimpleAlert(title: string, subTitle: string, buttons: string[]): void {
+  public showSimpleAlert(title: string, subTitle: string, buttons: any[]): void {
     let alert = this.alertCtrl.create({
       title: title,
       subTitle: subTitle,
