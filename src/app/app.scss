@@ -22,7 +22,7 @@
     background-color: #d83749;
 }
 
-.nav-left{
+.nav-left button{
     color: white;
 }
 
@@ -38,6 +38,26 @@
 
 .nav-title .toolbar-title-md{
     color: white;
+}
+
+ion-footer .toolbar-title-md{
+    text-align: center;
+    color: white;
+}
+
+.notification-number{
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #0800ff;
+    position: absolute;
+    left: 200px;
+}
+
+.notification-value{
+    position: absolute;
+    left: 203px;
+    font-size: 10px;
 }
 
 // common css ends

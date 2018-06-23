@@ -11,7 +11,7 @@
   <ion-navbar>
     <ion-row>
       <ion-col col-4 class="nav-left">
-          <ion-icon name="menu"></ion-icon>
+          <button ion-button menuToggle><ion-icon name="menu"></ion-icon></button>
       </ion-col>
       <ion-col col-4 class="nav-title">
           <ion-title>HOME</ion-title>
@@ -20,12 +20,24 @@
           <ion-icon name="more"></ion-icon>
       </ion-col>
     </ion-row>
+
+    <ion-menu side="left" [content]="mycontent">
+        <ion-content>
+          <ion-list>
+            <p>some menu content, could be list items</p>
+          </ion-list>
+        </ion-content>
+      </ion-menu>
+
+      <ion-nav #mycontent [root]="rootPage"></ion-nav>
     
     
   </ion-navbar>
 </ion-header>
 
 <ion-content class="sign-up">
+
+    
   <ion-grid>
     <ion-row class="pro-pic-row">
       <ion-col>
@@ -82,3 +94,9 @@
     </ion-row> 
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+      <ion-title><ion-icon name="notifications"></ion-icon><span class="notification-number"></span><span class="notification-value">1</span></ion-title>
+    </ion-toolbar>
+  </ion-footer>
